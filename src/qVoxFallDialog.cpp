@@ -193,7 +193,12 @@ void qVoxFallDialog::browseDestination()
 	fileType = "ASCII table (*.csv)";
 
 	//open file saving dialog
+#ifdef Q_OS_MAC
+	QString outputFilename = QFileDialog::getSaveFileName(nullptr, "Select destination", destinationPathLineEdit->text(), fileType,
+			  	  	  	  	  	  	  	  	  	  	  	  nullptr, QFileDialog::Options() | QFileDialog::DontUseNativeDialog);
+#else
 	QString outputFilename = QFileDialog::getSaveFileName(nullptr, "Select destination", destinationPathLineEdit->text(), fileType);
+#endif
 
 	if (outputFilename.isEmpty())
 		return;
